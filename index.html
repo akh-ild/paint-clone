@@ -11,50 +11,57 @@
 <body>
     <!-- Tool bar -->
     <div class="tool-bar">
-        <!-- Active toll -->
+        <!-- Active Tool -->
         <div class="active-tool">
-            <span id="active-tool" title="Active tool">Brush</span>
+            <span id="active-tool" title="Active Tool">Brush</span>
         </div>
         <!-- Brush -->
         <div class="brush tool">
             <i class="fas fa-brush" id="brush" title="Brush"></i>
-            <input type="color">
-            <span class="size" id="brush-size" title="Brush size">10</span>
-            <input type="range" min="1" max="50" value="10" class="slider" id="brysh-slider">
+            <input class="jscolor" id="brush-color" value="a51dab">
+            <span class="size" id="brush-size" title="Brush Size">10</span>
+            <input type="range" min="1" max="50" value="10" class="slider" id="brush-slider">
         </div>
         <!-- Bucket -->
         <div class="bucket tool">
-            <i class="fas fa-fill-drip" title="Background color"></i>
-            <input type="color">
+            <i class="fas fa-fill-drip" title="Background Color"></i>
+            <input class="jscolor" id="bucket-color" value="ffffff">
         </div>
         <!-- Eraser -->
         <div class="tool">
             <i class="fas fa-eraser" id="eraser" title="Eraser"></i>
         </div>
-        <!-- Clear canvas -->
+        <!-- Clear Canvas -->
         <div class="tool">
             <i class="fas fa-undo-alt" id="clear-canvas" title="Clear"></i>
         </div>
-        <!-- Save local storage -->
+        <!-- Save Local Storage -->
         <div class="tool">
-            <i class="fas fa-download" id="save-storage" title="Save local storage"></i>
+            <i class="fas fa-download" id="save-storage" title="Save Local Storage"></i>
         </div>
-        <!-- Load local storage -->
+        <!-- Load Local Storage -->
         <div class="tool">
-            <i class="fas fa-upload" id="load-storage" title="Load local storage"></i>
+            <i class="fas fa-upload" id="load-storage" title="Load Local Storage"></i>
         </div>
-        <!-- Clear local storage -->
+        <!-- Clear Local Storage -->
         <div class="tool">
-            <i class="fas fa-trash-alt" id="clear-storage" title="Clear local storage"></i>
+            <i class="fas fa-trash-alt" id="clear-storage" title="Clear Local Storage"></i>
         </div>
-        <!-- Download image -->
+        <!-- Download Image -->
         <div class="tool">
-            <a href="#" id="download">
-                <i class="far fa-save" title="Save image file"></i>
+            <a id="download">
+                <i class="far fa-save" title="Save Image File"></i>
             </a>
         </div>
     </div>
+
+    <!-- Mobile message -->
+    <div class="mobile-message">
+        <h2>Please use application on larger screen</h2>
+    </div>
+
     <!-- Script -->
+    <script src="jscolor.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

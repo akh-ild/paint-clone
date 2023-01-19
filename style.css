@@ -47,14 +47,14 @@ body {
 
 .fa-undo-alt:hover,
 .fa-trash-alt:hover {
-  color: rgb(233, 37, 37);
+  color: rgb(223, 37, 37);
 }
 
 /* Tools */
 .active-tool {
   position: absolute;
-  top: 9px;
-  left: 5px;
+  top: 15px;
+  left: 15px;
 }
 
 .active-tool > span {
@@ -82,7 +82,7 @@ body {
 }
 
 .brush > * {
-  margin-left: 10px;
+  margin-left: 9px;
 }
 
 .size {
@@ -102,7 +102,7 @@ body {
 /* Custom slider */
 .slider {
   -webkit-appearance: none;
-  appearance: noen;
+  appearance: noту;
   position: relative;
   left: -8px;
   width: 100px;
@@ -112,8 +112,9 @@ body {
   opacity: 0.7;
   cursor: pointer;
   -webkit-transition: 0.2s;
-  transition: opacity 0.2;
+  transition: opacity 0.2s;
 }
+
 
 .slider:hover {
   opacity: 1;
@@ -148,7 +149,7 @@ body {
 /* Canvas */
 canvas#canvas {
   background-color: rgb(177, 177, 177);
-  position: relative;
+  position: absolute;
   top: 50px;
   cursor: crosshair;
   z-index: 10;
