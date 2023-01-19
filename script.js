@@ -1,10 +1,15 @@
 const activeToolEl = document.getElementById('active-tool');
-const bucketColorBtn = document.getElementById('bucket-color');
 const brushColorBtn = document.getElementById('brush-color');
 const brushIcon = document.getElementById('brush');
 const brushSize = document.getElementById('brush-size');
 const brushSlider = document.getElementById('brush-slider');
+const bucketColorBtn = document.getElementById('bucket-color');
 const eraser = document.getElementById('eraser');
+const clearCanvasBtn = document.getElementById('clear-canvas');
+const saveStorageBtn = document.getElementById('save-storage');
+const loadStorageBtn = document.getElementById('load-storage');
+const clearStorageBtn = document.getElementById('clear-storage');
+const downloadBtn = document.getElementById('download');
 
 const { body } = document;
 
@@ -17,6 +22,7 @@ let bucketColor = '#FFFFFF';
 let currentColor = '#A51DAB';
 let currentSize = 10;
 let isEraser = false;
+let isMouseDown = false;
 
 // Create Canvas
 function createCanvas() {
@@ -40,16 +46,16 @@ brushColorBtn.addEventListener('change', () => {
   createCanvas();
 });
 
-// Formatting brush size
-function displayBrushSize() {
-  brushSize.textContent = brushSlider.value < 10 ? `0${brushSlider.value}` : brushSlider.value;
-}
-
 // Setting brush size
 brushSlider.addEventListener('change', () => {
   currentSize = brushSlider.value;
   displayBrushSize();
 });
+
+// Formatting brush size
+function displayBrushSize() {
+  brushSize.textContent = brushSlider.value < 10 ? `0${brushSlider.value}` : brushSlider.value;
+}
 
 // Eraser
 eraser.addEventListener('click', () => {
@@ -72,6 +78,40 @@ function switchToBrush() {
   brushSlider.value = 10;
   displayBrushSize();
 }
+
+// Get mouse position
+function getMousePosition(event) {
+  const boundaries = canvas.getBoundingClientRect();
+  return {
+    x: event.clientX - boundaries.left,
+    y: event.clientY - boundaries.top,
+  };
+}
+
+// Mouse down
+canvas.addEventListener('mousedown', (event) => {
+  isMouseDown = true;
+  const currentPosition = getMousePosition(event);
+  context.moveTo(currentPosition.x, currentPosition.y);
+  context.beginPath();
+  context.lineWidth = currentSize;
+  context.lineCap = 'round';
+  context.strokeStyle = currentColor;
+});
+
+// Mouse move
+canvas.addEventListener('mousemove', (event) => {
+  if (isMouseDown) {
+    const currentPosition = getMousePosition(event);
+    context.lineTo(currentPosition.x, currentPosition.y);
+    context.stroke();
+  }
+});
+
+// Mouse up
+canvas.addEventListener('mouseup', () => {
+  isMouseDown = false;
+});
 
 // Event listener
 brushIcon.addEventListener('click', switchToBrush);
