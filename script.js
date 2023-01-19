@@ -23,6 +23,7 @@ let currentColor = '#A51DAB';
 let currentSize = 10;
 let isEraser = false;
 let isMouseDown = false;
+let drawnArray = [];
 
 // Create Canvas
 function createCanvas() {
@@ -42,8 +43,8 @@ bucketColorBtn.addEventListener('change', () => {
 
 // Setting brush color
 brushColorBtn.addEventListener('change', () => {
+  isEraser = false;
   currentColor = `#${brushColorBtn.value}`;
-  createCanvas();
 });
 
 // Setting brush size
