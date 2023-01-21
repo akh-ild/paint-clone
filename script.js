@@ -163,6 +163,35 @@ canvas.addEventListener('mouseup', () => {
   isMouseDown = false;
 });
 
+// Save to local storage
+saveStorageBtn.addEventListener('click', () => {
+  localStorage.setItem('savedCanvas', JSON.stringify(drawnArray));
+  // Active tool
+  activeToolEl.textContent = 'Canvas saved';
+  setTimeout(switchToBrush, 1500);
+});
+
+// Load from local storage
+loadStorageBtn.addEventListener('click', () => {
+  if (localStorage.getItem('savedCanvas')) {
+    drawnArray = JSON.parse(localStorage.savedCanvas);
+    restoreCanvas();
+    // Active tool
+    activeToolEl.textContent = 'Canvas loaded'
+  } else {
+    activeToolEl.textContent = 'No canvas found'
+  }
+  setTimeout(switchToBrush, 1500);
+});
+
+// Clear loacl storage
+clearStorageBtn.addEventListener('click', () => {
+  localStorage.removeItem('savedCanvas');
+  // Active tool
+  activeToolEl.textContent = 'Local storage cleared';
+  setTimeout(switchToBrush, 1500);
+});
+
 // Event listener
 brushIcon.addEventListener('click', switchToBrush);
 
