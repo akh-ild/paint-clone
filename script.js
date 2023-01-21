@@ -184,11 +184,20 @@ loadStorageBtn.addEventListener('click', () => {
   setTimeout(switchToBrush, 1500);
 });
 
-// Clear loacl storage
+// Clear local storage
 clearStorageBtn.addEventListener('click', () => {
   localStorage.removeItem('savedCanvas');
   // Active tool
   activeToolEl.textContent = 'Local storage cleared';
+  setTimeout(switchToBrush, 1500);
+});
+
+// Download image
+downloadBtn.addEventListener('click', () => {
+  downloadBtn.href = canvas.toDataURL('image/jpeg', 1.0);
+  downloadBtn.download = 'pain-example.jpeg';
+  // Active tool
+  activeToolEl.textContent = 'Image file saved';
   setTimeout(switchToBrush, 1500);
 });
 
