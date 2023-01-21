@@ -19,7 +19,7 @@ canvas.id = 'canvas';
 const context = canvas.getContext('2d');
 
 let bucketColor = '#FFFFFF';
-let currentColor = '#A51DAB';
+let currentColor = '#000000';
 let currentSize = 10;
 let isEraser = false;
 let isMouseDown = false;
@@ -37,8 +37,9 @@ function createCanvas() {
 
 // Setting background color
 bucketColorBtn.addEventListener('change', () => {
-  isEraser = false;
-  currentColor = `#${brushColorBtn.value}`;
+  bucketColor = `#${bucketColorBtn.value}`;
+  createCanvas();
+  restoreCanvas();
 });
 
 // Setting brush color
@@ -80,6 +81,45 @@ function switchToBrush() {
   displayBrushSize();
 }
 
+// Store drawn lines in drawnArray
+function storeDrawn(x, y, size, color, erase) {
+  const line = {
+    x,
+    y,
+    size,
+    color,
+    erase,
+  };
+  console.log(line);
+  drawnArray.push(line);
+}
+
+// Draw what is stored in drawnArray
+function restoreCanvas() {
+  for (let i = 1; i < drawnArray.length; i++) {
+    context.beginPath();
+    context.moveTo(drawnArray[i - 1].x, drawnArray[i - 1].y);
+    context.lineWidth = drawnArray[i].size;
+    context.lineCap = 'round';
+    if (drawnArray[i].eraser) {
+      context.strokeStyle = bucketColor;
+    } else {
+      context.strokeStyle = drawnArray[i].color;
+    }
+    context.lineTo(drawnArray[i].x, drawnArray[i].y);
+    context.stroke();
+  }
+}
+
+// Clear canvas
+clearCanvasBtn.addEventListener('click', () => {
+  createCanvas();
+  drawnArray = [];
+  // Active tool
+  activeToolEl.textContent = 'Canvas cleared';
+  setTimeout(switchToBrush, 1500);
+});
+
 // Get mouse position
 function getMousePosition(event) {
   const boundaries = canvas.getBoundingClientRect();
@@ -106,7 +146,16 @@ canvas.addEventListener('mousemove', (event) => {
     const currentPosition = getMousePosition(event);
     context.lineTo(currentPosition.x, currentPosition.y);
     context.stroke();
-  }
+    storeDrawn(
+      currentPosition.x,
+      currentPosition.y,
+      currentSize,
+      currentColor,
+      isEraser
+      );
+    } else {
+      storeDrawn(undefined);
+    }
 });
 
 // Mouse up
